@@ -1,0 +1,7 @@
+FROM NOME
+WORKDIR /app
+COPY pakage*.json ./
+RUN npm install
+COPY . .
+EXPOSE 8080
+CMD [ "node", "server.js"]
