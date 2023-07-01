@@ -1,0 +1,38 @@
+version: '3.8'
+
+volumes:
+  postgres-vol:
+
+networks:
+  conversao-temperatura-net:
+    driver: bridge
+
+services:
+  web:
+    image: valterlafuentejr/conversao-temperatura:v1
+    ports:
+    - 8080:8080
+    networks:
+      - conversao-temperatura-net
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_PASSWORD: jr123 
+      POSTGRES_USER: kubelafuente 
+      POSTGRES_DB: kubelafuente
+      DB_HOST: postgres
+  
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    networks:
+     - conversao-temperatura-net
+    volumes:
+     - /postgres-vol:/var/libpostgresql/data
+    environment:
+      POSTGRES_PASSWORD: jr123 
+      POSTGRES_USER: kubelafuente 
+      POSTGRES_DB: kubelafuente
+
+
